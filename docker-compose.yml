@@ -1,24 +1,14 @@
 version: '3.5'
 
 services:
-  node:
+  nodebb:
     build: .
-    restart: unless-stopped
-    depends_on:
-      - db
-    expose:
-      - 4567 # use a reverse proxy like Traefik
+    restart: always
+    ports:
+      - '127.0.0.1:${PORT_FRONTEND}:4567'
+    networks:
+      - blogdb
 
-  db:
-    image: mongo:bionic
-    restart: unless-stopped
-    expose:
-      - 27017
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
-    volumes:
-      - mongo:/data/db
-
-volumes:
-  mongo:
+networks:
+  blogdb:
+    external: true
