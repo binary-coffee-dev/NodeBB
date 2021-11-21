@@ -10,6 +10,15 @@ define('forum/login', ['hooks', 'translator', 'jquery-form'], function (hooks, t
 		const errorEl = $('#login-error-notify');
 		const submitEl = $('#login');
 		const formEl = $('#login-form');
+		const loginBinary = $('#login-binary');
+
+		loginBinary.on('click', function (e) {
+			e.preventDefault();
+
+			const d = new URL('/login', window.location.protocol + '//' + window.location.host);
+
+			window.location.href = 'http://localhost:4202/dashboard/login?tokenOn=true&redir=' + encodeURIComponent(d.href);
+		});
 
 		submitEl.on('click', function (e) {
 			e.preventDefault();
