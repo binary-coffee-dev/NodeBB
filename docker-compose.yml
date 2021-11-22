@@ -5,7 +5,7 @@ services:
     build: .
     restart: always
     ports:
-      - '127.0.0.1:${PORT_FRONTEND}:4567'
+      - '127.0.0.1:${PORT_FRONTEND}:${PORT_FRONTEND}'
     networks:
       - blogdb
 

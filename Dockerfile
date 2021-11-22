@@ -28,6 +28,4 @@ ENV NODE_ENV=production \
     daemon=false \
     silent=false
 
-EXPOSE 4567
-
 CMD node ./nodebb build ;  node ./nodebb start
