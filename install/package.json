@@ -92,6 +92,7 @@
         "nodebb-plugin-mentions": "3.0.3",
         "nodebb-plugin-spam-be-gone": "0.7.11",
         "nodebb-rewards-essentials": "0.2.0",
+	  	"nodebb-theme-binarycoffee": "github:binary-coffee-dev/nodebb-theme-binarycoffee",
         "nodebb-theme-lavender": "5.3.1",
         "nodebb-theme-persona": "11.2.22",
         "nodebb-theme-slick": "1.4.16",
