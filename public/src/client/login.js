@@ -12,7 +12,7 @@ define('forum/login', ['hooks', 'translator', 'jquery-form'], function (hooks, t
 		const formEl = $('#login-form');
 		const loginBinary = $('#login-binary');
 
-		loginBinary.on('click', function (e) {
+		loginBinary && loginBinary.on('click', function (e) {
 			e.preventDefault();
 
 			const d = new URL('/login', window.location.protocol + '//' + window.location.host);
@@ -20,7 +20,7 @@ define('forum/login', ['hooks', 'translator', 'jquery-form'], function (hooks, t
 			window.location.href = 'http://localhost:4202/dashboard/login?tokenOn=true&redir=' + encodeURIComponent(d.href);
 		});
 
-		submitEl.on('click', function (e) {
+		submitEl && submitEl.on('click', function (e) {
 			e.preventDefault();
 
 			if (!$('#username').val() || !$('#password').val()) {
