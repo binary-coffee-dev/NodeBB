@@ -15,9 +15,10 @@ define('forum/login', ['hooks', 'translator', 'jquery-form'], function (hooks, t
 		loginBinary && loginBinary.on('click', function (e) {
 			e.preventDefault();
 
-			const d = new URL('/login', window.location.protocol + '//' + window.location.host);
-
-			window.location.href = 'http://localhost:4202/dashboard/login?tokenOn=true&redir=' + encodeURIComponent(d.href);
+			socket.emit('plugins.binary.getSettings', {}, function (err, data) {
+				const d = new URL('/login', window.location.protocol + '//' + window.location.host);
+				window.location.href = data.login_page + '?tokenOn=true&redir=' + encodeURIComponent(d.href);
+			});
 		});
 
 		submitEl && submitEl.on('click', function (e) {

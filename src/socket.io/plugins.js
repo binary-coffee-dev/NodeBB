@@ -13,5 +13,12 @@ const SocketPlugins = {};
 
 	Be a good lad and namespace your methods.
 */
+const nconf = require('nconf');
+
+SocketPlugins.binary = {
+	getSettings: function (socket, data, callback) {
+		callback(null, nconf.get('binary'));
+	},
+};
 
 module.exports = SocketPlugins;

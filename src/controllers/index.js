@@ -4,13 +4,13 @@ const nconf = require('nconf');
 const validator = require('validator');
 
 const request = require('request');
+const winston = require('winston');
 const meta = require('../meta');
 const user = require('../user');
 const plugins = require('../plugins');
 const privileges = require('../privileges');
 const helpers = require('./helpers');
-const pkg = require("../../package.json");
-const winston = require("winston");
+const pkg = require('../../package.json');
 const slugify = require('../slugify');
 
 const Controllers = module.exports;
@@ -97,34 +97,33 @@ Controllers.reset = async function (req, res) {
 };
 
 Controllers.login = async function (req, res) {
-
 	if (req.query.token) {
 		const jwt = req.query.token;
 		const GET_USER_DATA = {
 			operationName: null,
 			variables: {},
 			// language=GraphQL
-			query: 'query{\n    myData{\n        id\n        username\n        email\n        page\n        avatarUrl\n        role { name type }\n    }\n}'
-		}
-		const {resServer, body} = await new Promise((resolve, reject) => {
+			query: 'query{\n    myData{\n        id\n        username\n        email\n        page\n        avatarUrl\n        role { name type }\n    }\n}',
+		};
+		const { resServer, body } = await new Promise((resolve, reject) => {
 			request({
 				method: 'POST',
-				url: 'http://localhost:1337/graphql',
+				url: nconf.get('binary').graphql_api,
 				body: GET_USER_DATA,
 				json: true,
 				headers: {
-					'Authorization': `Bearer ${jwt}`
-				}
-			}, (err, res, body) => err ? reject(err) : resolve({resServer: res, body}));
+					Authorization: `Bearer ${jwt}`,
+				},
+			}, (err, res, body) => (err ? reject(err) : resolve({ resServer: res, body })));
 		});
 		if (resServer.statusCode !== 200) {
 			// toDo 21.11.21, guille, redirect to login without token
 		} else {
 			const data = body.data.myData;
-			let userData = {
+			const userData = {
 				username: data.username,
 				userslug: slugify(data.username),
-				email: data.email || ''
+				email: data.email || '',
 			};
 			const exists = await meta.userOrGroupExists(userData.username);
 			let uid;
@@ -134,7 +133,7 @@ Controllers.login = async function (req, res) {
 				uid = await user.create(userData);
 				await plugins.hooks.fire('filter:register.complete', { uid: uid, next: nextRedirection });
 			} else {
-				const query = await user.search({query: userData.username});
+				const query = await user.search({ query: userData.username });
 				uid = query.users[0].uid;
 			}
 

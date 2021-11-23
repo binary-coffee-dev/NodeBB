@@ -1,12 +1,12 @@
 #!/bin/bash
 set -e
 
-if [ -f .env ]
-then
+if [ -f .env ]; then
   export $(cat .env | xargs)
 fi
 
-CONFIG=$(cat <<-END
+CONFIG=$(
+  cat <<-END
 {
     "url": "$URL",
     "database": "mongo",
@@ -39,16 +39,18 @@ else
 fi
 
 if [ ! -e /data/uploads ]; then
-    mv /usr/src/app/public/uploads /data/uploads \
-    && ln -s /data/uploads /usr/src/app/public/uploads
+  mv /usr/src/app/public/uploads /data/uploads &&
+    ln -s /data/uploads /usr/src/app/public/uploads
 else
-    rm -rf /usr/src/app/public/uploads \
-    && ln -s /data/uploads /usr/src/app/public/uploads
+  rm -rf /usr/src/app/public/uploads &&
+    ln -s /data/uploads /usr/src/app/public/uploads
 fi
 
 if [ -f config.json ]; then
+  node ./add-configs.js
+
   /usr/src/app/nodebb build --series
   /usr/src/app/nodebb upgrade -mips
 fi
 
-node ./nodebb start
+/usr/src/app/nodebb start
