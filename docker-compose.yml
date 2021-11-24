@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-      - '127.0.0.1:${PORT_FRONTEND}:${PORT_FRONTEND}'
+      - '127.0.0.1:${PORT}:${PORT}'
     networks:
       - blogdb
     environment:
@@ -21,7 +21,7 @@ services:
       ADMIN_NAME: $ADMIN_NAME
       ADMIN_EMAIL: $ADMIN_EMAIL
       ADMIN_PASSWORD: $ADMIN_PASSWORD
-      PORT: $PORT_FRONTEND
+      PORT: $PORT
       BINARY_GRAPHQL_API: $BINARY_GRAPHQL_API
       BINARY_LOGIN_PAGE: $BINARY_LOGIN_PAGE
     volumes:
