@@ -22,17 +22,17 @@ jobs:
         env:
           NODE_ENV: development
           PORT: 4687
-          DATA_PATH: DEV__DATA_PATH
+          DATA_PATH: ${{ secrets.DEV__DATA_PATH }}
           URL: https://devforum.binary-coffee.dev
           DB_USER: ""
           DB_PASSWORD: ""
-          DB_HOST: DEV__DB_HOST
-          DB_PORT: DEV__DB_PORT
-          DB_NAME: DEV__DB_NAME
-          SECRET: DEV__SECRET
-          ADMIN_NAME: DEV__ADMIN_NAME
-          ADMIN_EMAIL: DEV__ADMIN_EMAIL
-          ADMIN_PASSWORD: DEV__ADMIN_PASSWORD
+          DB_HOST: ${{ secrets.DEV__DB_HOST }}
+          DB_PORT: ${{ secrets.DEV__DB_PORT }}
+          DB_NAME: ${{ secrets.DEV__DB_NAME }}
+          SECRET: ${{ secrets.DEV__SECRET }}
+          ADMIN_NAME: ${{ secrets.DEV__ADMIN_NAME }}
+          ADMIN_EMAIL: ${{ secrets.DEV__ADMIN_EMAIL }}
+          ADMIN_PASSWORD: ${{ secrets.DEV__ADMIN_PASSWORD }}
           BINARY_GRAPHQL_API: https://api-dev.binary-coffee.dev/graphql
           BINARY_LOGIN_PAGE: https://dev.binary-coffee.dev/dashboard/login
 
