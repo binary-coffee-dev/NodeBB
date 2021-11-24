@@ -68,7 +68,7 @@ jobs:
         run: ./create_env_file.sh
         env:
           NODE_ENV: development
-          PORT: 4687
+          PORT: 4688
           DATA_PATH: ${{ secrets.PROD__DATA_PATH }}
           URL: https://forum.binary-coffee.dev
           DB_USER: ""
