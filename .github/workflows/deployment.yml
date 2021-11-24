@@ -64,6 +64,25 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Create env variables file
+        run: ./create_env_file.sh
+        env:
+          NODE_ENV: development
+          PORT: 4687
+          DATA_PATH: ${{ secrets.PROD__DATA_PATH }}
+          URL: https://forum.binary-coffee.dev
+          DB_USER: ""
+          DB_PASSWORD: ""
+          DB_HOST: ${{ secrets.PROD__DB_HOST }}
+          DB_PORT: ${{ secrets.PROD__DB_PORT }}
+          DB_NAME: ${{ secrets.PROD__DB_NAME }}
+          SECRET: ${{ secrets.PROD__SECRET }}
+          ADMIN_NAME: ${{ secrets.PROD__ADMIN_NAME }}
+          ADMIN_EMAIL: ${{ secrets.PROD__ADMIN_EMAIL }}
+          ADMIN_PASSWORD: ${{ secrets.PROD__ADMIN_PASSWORD }}
+          BINARY_GRAPHQL_API: https://api.binary-coffee.dev/graphql
+          BINARY_LOGIN_PAGE: https://binary-coffee.dev/dashboard/login
+
       - name: Copy project to the hosting
         uses: easingthemes/ssh-deploy@v2.1.5
         env:
